@@ -1,0 +1,48 @@
+.footerSections {
+  margin-top: 1px;
+  font-family: Helvetica;
+}
+
+.logo {
+  text-transform: uppercase;
+}
+
+.footerSection {
+  outline: 1px solid #000;
+  margin-bottom: 1px;
+  padding: 1rem;
+}
+
+.footerSection h5 {
+  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.footerSection li {
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.footerSection a {
+  font-weight: lighter;
+  text-decoration: none;
+  color: inherit;
+}
+
+.copy {
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .footerSections {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1px;
+  }
+
+  .footerSection {
+    margin-bottom: 0;
+  }
+}
