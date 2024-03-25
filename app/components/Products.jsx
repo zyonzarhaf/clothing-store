@@ -1,19 +1,23 @@
-import Card from './Card.jsx';
+'use client';
+
+import { usePathname } from 'next/navigation';
+import Card from './Card';
 import styles from './Products.module.css';
 
-async function fetchProducts() {
-  const response = await fetch('http://localhost:8000/api/products');
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const data = await response.json();
-  return data;
+function filterProductsByCategory(products, pathName) {
+  const category = pathName.split('/').slice(2);
+  return products.filter(product =>
+    product.categories.every((cat, index) => cat === category[index])
+  );
 }
 
-export default async function Products() {
-  const products = await fetchProducts();
+export default function Products({ products }) {
+  const pathName = usePathname();
+  const results = pathName !== "/" ? filterProductsByCategory(products, pathName) : products;
 
   return (
     <div className={styles.productsContainer}> 
-      {products.map(product => (<Card key={product._id} product={product} />))}
+      {results.map(product => <Card key={product._id} product={product} />)}
     </div>
-  )
+  ) 
 }
