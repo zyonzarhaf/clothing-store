@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CiMenuBurger } from 'react-icons/ci';
 
+import Dropdown from './Dropdown';
+
 import styles from './Navbar.module.css';
 
 const menuItems = [
@@ -92,36 +94,19 @@ export default function Navbar() {
       <h2 className={styles.logoMark}>Clothing Store</h2>
       <CiMenuBurger className={styles.burgerMenu} />
       <ul className={styles.listItems}>
-        <li className={`${styles.listItem} ${pathName === '/' && styles.active}`}>
-          <Link className={styles.link} href="/">
-            Home
-          </Link>
-        </li>
-        <li className={`${styles.listItem} ${pathName === '/about' && styles.active}`}>
-          <Link className={styles.link} href="/about">
-            About
-          </Link>
-        </li>
-        <li className={`${styles.listItem} ${pathName === '/products' && styles.active}`}>
-          <Link className={styles.link} href="/products">
-            Products
-          </Link>
-        </li>
-        <li className={`${styles.listItem} ${pathName === '/login' && styles.active}`}>
-          <Link className={styles.link} href="/login">
-            Login
-          </Link>
-        </li>
-        <li className={`${styles.listItem} ${pathName === '/logout' && styles.active}`}>
-          <Link className={styles.link} href="/logout">
-            Logout
-          </Link>
-        </li>
-        <li className={`${styles.listItem} ${pathName === '/register' && styles.active}`}>
-          <Link className={styles.link} href="/register">
-            Register
-          </Link>
-        </li>
+        {
+          menuItems.map((menuItem) => {
+            return menuItem.children? (
+              <Dropdown menuItem={menuItem} />
+            ) : (
+              <li className={`${styles.listItem} ${pathName === menuItem.route && styles.active}`}>
+                <Link className={styles.link} href={menuItem.route}>
+                  {menuItem.title}
+                </Link>
+              </li>
+            );
+          })
+        }
       </ul>
     </nav>
   );
